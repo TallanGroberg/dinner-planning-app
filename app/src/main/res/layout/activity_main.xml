@@ -11,6 +11,8 @@
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
         android:text="Welcome to the table planning app"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -19,17 +21,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.101" />
 
-    <TextView
-        android:id="@+id/planner_name"
-        android:layout_width="0dp"
-        android:layout_height="17dp"
-        android:layout_marginEnd="192dp"
-        android:layout_marginRight="192dp"
-        android:text="sdfs"
-        app:layout_constraintBottom_toTopOf="@+id/input_planner_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcome"
-        app:layout_constraintVertical_bias="0.523" />
 
     <EditText
         android:id="@+id/input_planner_name"

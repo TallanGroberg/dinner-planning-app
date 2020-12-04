@@ -2,6 +2,7 @@ package com.tallangroberg.tableplanner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,7 +11,6 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView tv_plannerName;
     Button bt_submitPlannerName;
     EditText ed_inputPlannerName;
 
@@ -20,14 +20,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        tv_plannerName = (TextView) findViewById(R.id.planner_name);
         bt_submitPlannerName = (Button) findViewById(R.id.submit_planner_button);
         ed_inputPlannerName = (EditText) findViewById(R.id.input_planner_name);
 
 
         bt_submitPlannerName.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                tv_plannerName.setText("Welcome " + ed_inputPlannerName.getText());
+           Intent intent = new Intent(MainActivity.this, DecideTableCount.class);
+                String name = String.valueOf(ed_inputPlannerName.getText());
+           intent.putExtra(Intent.EXTRA_TEXT, name);
+           startActivity(intent);
             }
         });
     }
