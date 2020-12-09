@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class AllTablesView extends AppCompatActivity {
 
@@ -16,6 +18,7 @@ public class AllTablesView extends AppCompatActivity {
     String[] tables;
     TableViewAdapter tableViewAdapter;
     RecyclerView mTableList;
+    TextView tv_tableName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +26,14 @@ public class AllTablesView extends AppCompatActivity {
         setContentView(R.layout.activity_all_tables_view);
 
         mTableList = (RecyclerView) findViewById(R.id.rv_numbers);
+        tv_tableName = (TextView) findViewById(R.id.table_in_list);
 
         Intent sentFromDecideTableCount = getIntent();
+        Intent sentFromSingleTableView = getIntent();
+        if(sentFromSingleTableView.hasExtra(Intent.EXTRA_TITLE)){
+
+        }
+
         if(sentFromDecideTableCount.hasExtra(Intent.EXTRA_TEXT)) {
             numberOfTablesAsString = sentFromDecideTableCount.getStringExtra(Intent.EXTRA_TEXT);
             NUMBER_OF_TABLES = Integer.parseInt(numberOfTablesAsString);
@@ -40,6 +49,9 @@ public class AllTablesView extends AppCompatActivity {
 
         tableViewAdapter = new TableViewAdapter(tables);
         mTableList.setAdapter(tableViewAdapter);
+
+
+
     }
 
     public void makeTables() {
@@ -49,6 +61,7 @@ public class AllTablesView extends AppCompatActivity {
             tables = new String[NUMBER_OF_TABLES];
             Log.e("more than one table",  NUMBER_OF_TABLES + "");
             for (int i = 0; i < tables.length; i++) {
+
                 int n = i + 1;
                 tables[i] = "table " + n;
             }

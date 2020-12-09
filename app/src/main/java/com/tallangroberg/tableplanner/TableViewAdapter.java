@@ -1,5 +1,6 @@
 package com.tallangroberg.tableplanner;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,9 +8,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Arrays;
+
+import static androidx.core.content.ContextCompat.startActivity;
 
 public class TableViewAdapter extends RecyclerView.Adapter<TableViewAdapter.ViewHolder>
 {
@@ -33,6 +37,11 @@ public class TableViewAdapter extends RecyclerView.Adapter<TableViewAdapter.View
                 public void onClick(View v)
                 {
                     Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
+                    Intent intent = new Intent(v.getContext(), SingleTableView.class);
+                    String tableName = (String) textView.getText();
+                    intent.putExtra(Intent.EXTRA_TEXT, tableName);
+
+                startActivity(v.getContext(), intent,null);
                 }
             });
                 textView = v.findViewById(R.id.table_in_list);
