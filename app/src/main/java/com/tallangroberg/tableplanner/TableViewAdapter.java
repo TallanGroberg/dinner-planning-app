@@ -22,9 +22,10 @@ public class TableViewAdapter extends RecyclerView.Adapter<TableViewAdapter.View
 {
         private static final String TAG = "TableViewAdapter";
 
-         String[] mDataSet;
+         private static String[] mDataSet;
          private static int mNumberOfTables;
-         private static int count = 0;
+         private static boolean bTablesMade;
+
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder
@@ -48,7 +49,10 @@ public class TableViewAdapter extends RecyclerView.Adapter<TableViewAdapter.View
                     Intent intent = new Intent(v.getContext(), SingleTableView.class);
                     String tableName = (String) textView.getText();
                     intent.putExtra(Intent.EXTRA_TEXT, tableName);
+                    intent.putExtra("tables_array", mDataSet);
+                    intent.putExtra("tablesMade", bTablesMade);
                     intent.putExtra("numberOfTables", mNumberOfTables);
+
 
 
 
@@ -67,12 +71,12 @@ public class TableViewAdapter extends RecyclerView.Adapter<TableViewAdapter.View
     // END ViewHolder.
 
 
-    public TableViewAdapter(String[] dataSet)
+    public TableViewAdapter(String[] dataSet, boolean tablesMade)
     {
 
         mDataSet = dataSet;
         mNumberOfTables = dataSet.length;
-        Log.e("number of tables",  " " + mNumberOfTables);
+       bTablesMade = tablesMade;
 
     }
 

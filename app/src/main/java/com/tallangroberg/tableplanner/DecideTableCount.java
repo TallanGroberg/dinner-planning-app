@@ -45,9 +45,7 @@ public class DecideTableCount extends AppCompatActivity
         String numberOfTables = String.valueOf(ed_numberOfTables.getText());
         int numOtables = Integer.parseInt(numberOfTables);
         sendToAllTablesView.putExtra("numberOfTables", numOtables);
-
         startActivity(sendToAllTablesView);
-
             }
         });
     }

@@ -25,10 +25,10 @@ public class SingleTableView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_table_view);
 
-        Bundle extras = getIntent().getExtras();
+        final Bundle extras = getIntent().getExtras();
+
 
         numberOfTables = extras.getInt("numberOfTables");
-        Log.e("TAG", " " + numberOfTables);
 
 
         Intent sentFromTableViewAdapter = getIntent();
@@ -40,15 +40,18 @@ public class SingleTableView extends AppCompatActivity {
             ed_tableName.setText(tableName);
         }
 
+
+
         bt_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String newTableName = String.valueOf(ed_tableName.getText());
                 Intent intent = new Intent(SingleTableView.this, AllTablesView.class);
-                intent.putExtra(Intent.EXTRA_TITLE, newTableName);
                 intent.putExtra("old_table", tableName);
+                intent.putExtra("new_table", newTableName);
                 intent.putExtra("numberOfTables", numberOfTables);
-
+                intent.putExtra("tablesMade", extras.getBoolean("tablesMade"));
+                intent.putExtra("tables_array", extras.getStringArray("tables_array"));
                 startActivity(intent);
             }
         });

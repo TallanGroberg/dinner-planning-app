@@ -5,16 +5,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
+
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.LinearLayout;
+
+
 import android.widget.TextView;
+
+
 
 public class AllTablesView extends AppCompatActivity {
 
-    private  String[] tables;
+      String[] tables;
+    private boolean tablesMade;
     private  int NUMBER_OF_TABLES;
     TableViewAdapter tableViewAdapter;
     RecyclerView mTableList;
@@ -28,10 +30,11 @@ public class AllTablesView extends AppCompatActivity {
 
         if(savedInstanceState != null) {
             if(savedInstanceState.containsKey("numberOfTables")){
-                Log.e("saved state", savedInstanceState.getInt( "numberOfTables") + "");
                 NUMBER_OF_TABLES = savedInstanceState.getInt( "numberOfTables");
             }
         }
+
+
 
         makeView();
     }
@@ -41,9 +44,16 @@ public class AllTablesView extends AppCompatActivity {
     public  void makeView() {
         Bundle extras = getIntent().getExtras();
 
+        String newTable =  extras.getString("new_table");
+
+        String oldTable =  extras.getString("old_table");
+
+
+
+
+
         NUMBER_OF_TABLES = extras.getInt("numberOfTables");
         tables = new String[NUMBER_OF_TABLES];
-
         mTableList = (RecyclerView) findViewById(R.id.rv_numbers);
         tv_tableName = (TextView) findViewById(R.id.table_in_list);
 
@@ -51,7 +61,15 @@ public class AllTablesView extends AppCompatActivity {
 
         if(NUMBER_OF_TABLES > 0)
         {
-            makeTables("new table", "old Table");
+            tablesMade = extras.getBoolean("tablesMade");
+            if(tablesMade) {
+            tables = extras.getStringArray("tables_array");
+
+                displayTables(newTable, oldTable);
+            } else {
+                makeTables();
+                tablesMade = true;
+            }
         }
 
 
@@ -61,7 +79,7 @@ public class AllTablesView extends AppCompatActivity {
 
         mTableList.setHasFixedSize(true);
 
-        tableViewAdapter = new TableViewAdapter(tables);
+        tableViewAdapter = new TableViewAdapter(tables, tablesMade);
         mTableList.setAdapter(tableViewAdapter);
     }
 
@@ -73,19 +91,26 @@ public class AllTablesView extends AppCompatActivity {
         outState.putInt("numberOfTables", NUMBER_OF_TABLES);
     }
 
-    public void makeTables(String newTable, String oldTable)
+    public void makeTables()
     {
 
-
-
-            Log.e("more than one table",  NUMBER_OF_TABLES + "");
             for (int i = 0; i < tables.length; i++) {
 
                 int n = i + 1;
                 tables[i] = "table " + n;
-
-                Log.e("in make Tables", tables[i]);
             }
+            tablesMade = true;
+    }
+
+    public void displayTables(String newTable, String oldTable) {
+
+        for (int i = 0; i < tables.length; i++) {
+
+            if(tables[i].equals(oldTable))
+            {
+                tables[i] = newTable;
+            }
+        }
 
     }
 
