@@ -1,6 +1,7 @@
 package com.tallangroberg.tableplanner;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,17 +14,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Arrays;
 
+import static android.content.Intent.getIntent;
+import static android.content.Intent.getIntentOld;
 import static androidx.core.content.ContextCompat.startActivity;
 
 public class TableViewAdapter extends RecyclerView.Adapter<TableViewAdapter.ViewHolder>
 {
         private static final String TAG = "TableViewAdapter";
 
-        private String[] mDataSet;
+         String[] mDataSet;
+         private static int mNumberOfTables;
+         private static int count = 0;
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
+
+
         private final TextView textView;
         int numberOfTables;
 
@@ -36,12 +43,16 @@ public class TableViewAdapter extends RecyclerView.Adapter<TableViewAdapter.View
                 @Override
                 public void onClick(View v)
                 {
+
                     Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
                     Intent intent = new Intent(v.getContext(), SingleTableView.class);
                     String tableName = (String) textView.getText();
                     intent.putExtra(Intent.EXTRA_TEXT, tableName);
+                    intent.putExtra("numberOfTables", mNumberOfTables);
 
-                startActivity(v.getContext(), intent,null);
+
+
+                    v.getContext().startActivity(intent);
                 }
             });
                 textView = v.findViewById(R.id.table_in_list);
@@ -60,7 +71,8 @@ public class TableViewAdapter extends RecyclerView.Adapter<TableViewAdapter.View
     {
 
         mDataSet = dataSet;
-        Log.e("tables array:::::", Arrays.toString(mDataSet));
+        mNumberOfTables = dataSet.length;
+        Log.e("number of tables",  " " + mNumberOfTables);
 
     }
 
@@ -88,7 +100,12 @@ public class TableViewAdapter extends RecyclerView.Adapter<TableViewAdapter.View
     @Override
     public int getItemCount()
     {
+        if(mDataSet != null) {
+
         return mDataSet.length;
+        } else {
+            return 0;
+        }
     }
 
 }

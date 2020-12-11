@@ -43,7 +43,8 @@ public class DecideTableCount extends AppCompatActivity
             {
         Intent sendToAllTablesView = new Intent(DecideTableCount.this, AllTablesView.class);
         String numberOfTables = String.valueOf(ed_numberOfTables.getText());
-        sendToAllTablesView.putExtra(Intent.EXTRA_TEXT, numberOfTables);
+        int numOtables = Integer.parseInt(numberOfTables);
+        sendToAllTablesView.putExtra("numberOfTables", numOtables);
 
         startActivity(sendToAllTablesView);
 
